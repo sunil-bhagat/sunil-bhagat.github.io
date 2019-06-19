@@ -1,7 +1,12 @@
 html,body{
     padding: 0 !important;
-    background: url("http://resourcemagonline.com/wp-content/uploads/2017/12/visitors-viewing-photographs-by-kenro-izu-in-the-exhibition-sacred-places-at-the-detroit-institute-of-arts-2008-photograph-by-eric-wheeler-for-the-detroit-institute-of-arts.jpg") center fixed;
-    background-size: cover;
+    background: url("http://resourcemagonline.com/wp-content/uploads/2017/12/visitors-viewing-photographs-by-kenro-izu-in-the-exhibition-sacred-places-at-the-detroit-institute-of-arts-2008-photograph-by-eric-wheeler-for-the-detroit-institute-of-arts.jpg")no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    margin: 0;
+    background-attachment: fixed;
+    max-width: 100%;
 }
 .navbar { 
     margin-bottom: 0 !important;  
