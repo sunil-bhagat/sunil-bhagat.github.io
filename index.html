@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-        <link rel="stylesheet" href="style.css" >
+    <link rel="stylesheet" href="style.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -34,30 +34,40 @@
         <div class="collapse navbar-collapse" id="navbarText">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a class="nav-link" id = "hometab" onclick="toggleDivs('Home')">Home</a>
+                    <a class="nav-link" id="hometab" onclick="toggleDivs('Home')">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id = "aboutmetab" onclick="toggleDivs('AboutMe')">About Me</a>
+                    <a class="nav-link" id="aboutmetab" onclick="toggleDivs('AboutMe')">About Me</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" id = "contactmetab" onclick="toggleDivs('ContactMe')">Contact Me</a>
+                    <a class="nav-link" id="contactmetab" onclick="toggleDivs('ContactMe')">Contact Me</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link"  id ="gallerytab" onclick="toggleDivs('Gallery')">My Gallery</a>
+                    <a class="nav-link" id="gallerytab" onclick="toggleDivs('Gallery')">My Gallery</a>
                 </li>
             </ul>
             <span class="navbar-text">
         </div>
     </nav>
-    <div id="Home" >
-        <span class ="middle"> "Tables turn, bridges burn, you live and learn"</span>
+    <div id="Home">
+        <span> "Tables turn, bridges burn, you live and learn"</span>
     </div>
-    <div class="container" id="AboutMe">
-        <div class="imgcontainer"><img  class="img-thumbnail rounded float-left" src="http://d3u67r7pp2lrq5.cloudfront.net/product_photos/45435326/BLewis_BobMarley_400sq.jpg" alt=""></div>
+    <div id="AboutMe">
+        <div style="padding: 4px;">
+            <img class="img-thumbnail rounded float-left potraitimg"
+                src="http://d3u67r7pp2lrq5.cloudfront.net/product_photos/45435326/BLewis_BobMarley_400sq.jpg" alt="">
+            <span class="jibber">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem molestias
+                repellendus, enim commodi aliquid amet exercitationem possimus nesciunt veniam velit corrupti modi saepe
+                vero cum placeat quidem incidunt fuga vel.</span><br>
+            <br> <span class="jibber">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatem molestias
+                repellendus, enim commodi aliquid amet exercitationem possimus nesciunt veniam velit corrupti modi saepe
+                vero cum placeat quidem incidunt fuga vel.</span><br>
+            <br><br><br><br><span style="color: white; font-size:20px;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vel at nemo velit, dolore nisi suscipit, expedita odit ea sunt incidunt in voluptates quos. Doloremque nemo ipsam officiis rem adipisci similique!</span>
+        </div>
     </div>
     <div class="container" id="ContactMe">
-        <div class="center" >
-            <form id="formcss" >
+        <div class="center">
+            <form id="formcss">
                 <div class="form-group" style="text-align: left">
                     <label for="name">Your name</label>
                     <input type="text" class="form-control" id="name" placeholder=" Enter Name" required>
@@ -93,7 +103,7 @@
                     <!-- Modal content-->
                     <div class="modal-content">
                         <div class="modal-header">
-                                <span style="font-size:19px; margin: 4px;">Add Image</span>
+                            <span style="font-size:19px; margin: 4px;">Add Image</span>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
                         <div class="modal-body">
@@ -149,9 +159,9 @@
                 </div>
             </div>
             <div class="modal-footer">
-                    <button type="button" class="btn btn-default submit" onclick="saveEdit()"><i
-                        class="fa fa-paper-plane" aria-hidden="true"></i>Save</button>
-                </div>
+                <button type="button" class="btn btn-default submit" onclick="saveEdit()"><i class="fa fa-paper-plane"
+                        aria-hidden="true"></i>Save</button>
+            </div>
         </div>
         <div class="flex-container" id="gallery-grid">
         </div>
