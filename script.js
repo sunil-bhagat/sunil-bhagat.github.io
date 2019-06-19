@@ -94,6 +94,7 @@ function updateGallery(url) {
     let img = document.createElement('img');
     img.addEventListener('click', showDetails);
     img.setAttribute('src', url);
+    img.classList.add('img-thumbnail');
     div.appendChild(img);
     document.getElementById('gallery-grid').appendChild(div);
 }
