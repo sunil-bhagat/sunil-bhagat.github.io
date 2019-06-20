@@ -1,9 +1,9 @@
 /**
  * saving the current tab to sessionstorage , so it remains active even after page refresh.
  */
-var activeTab = sessionStorage.getItem('activeTab')?sessionStorage.getItem('activeTab'):"Home";
-var activeNav = sessionStorage.getItem('activeNav')?sessionStorage.getItem('activeNav'):'hometab';
-if(activeTab){
+var activeTab = sessionStorage.getItem('activeTab') ? sessionStorage.getItem('activeTab') : "Home";
+var activeNav = sessionStorage.getItem('activeNav') ? sessionStorage.getItem('activeNav') : 'hometab';
+if (activeTab) {
     document.getElementById(activeNav).dispatchEvent(new Event('click'));
 }
 
@@ -13,24 +13,36 @@ let temp;
 /**
  * inserting default images if the local storage is empty.
  */
-if(imagesArr.length==0){
-    imagesArr[0]={
-        imgName : "Nice view",
-        imgUrl : "https://images.unsplash.com/photo-1535498730771-e735b998cd64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
-        imgDate : "1/02/2016",
-        imgInfo : "nice ocean view"
+if (imagesArr.length == 0) {
+    imagesArr[0] = {
+        imgName: "Nice view",
+        imgUrl: "https://images.unsplash.com/photo-1535498730771-e735b998cd64?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80",
+        imgDate: new Date("1/02/2016"),
+        imgInfo: "nice ocean view"
     };
-    imagesArr[1]={
-        imgName : "lake side view",
-        imgUrl : "https://i.pinimg.com/originals/5a/e5/8f/5ae58f5036997cfd4636917403c3c951.jpg",
-        imgDate : "1/02/2016",
-        imgInfo : "Lake Side View"
+    imagesArr[1] = {
+        imgName: "lake side view",
+        imgUrl: "https://i.pinimg.com/originals/5a/e5/8f/5ae58f5036997cfd4636917403c3c951.jpg",
+        imgDate: new Date("1/02/2016"),
+        imgInfo: "Lake Side View"
     };
-    imagesArr[2]={
-        imgName : "Golden panther",
-        imgUrl : "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-        imgDate : "1/02/2016",
-        imgInfo : "awesome"
+    imagesArr[2] = {
+        imgName: "Golden panther",
+        imgUrl: "https://images.pexels.com/photos/414612/pexels-photo-414612.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+        imgDate: new Date("1/02/2016"),
+        imgInfo: "awesome"
+    };
+    imagesArr[3] = {
+        imgName: "Gdsdser",
+        imgUrl: "https://www.w3schools.com/howto/img_snow.jpg",
+        imgDate: new Date("1/02/2016"),
+        imgInfo: "awesome"
+    };
+    imagesArr[4] = {
+        imgName: "Gdevr",
+        imgUrl: "https://images-cdn.9gag.com/photo/aVY8KMP_460s.jpg",
+        imgDate: new Date("1/02/2016"),
+        imgInfo: "awesome"
     };
 }
 
@@ -90,6 +102,7 @@ function validate() {
  * @param {*} url 
  */
 function updateGallery(url) {
+
     let div = document.createElement('div');
     let img = document.createElement('img');
     img.addEventListener('click', showDetails);
@@ -99,16 +112,34 @@ function updateGallery(url) {
     document.getElementById('gallery-grid').appendChild(div);
 }
 
+function isUrl(url) {
+    let img = document.createElement('img');;
+    img.setAttribute('src', url);
+            if (img.naturalHeight + img.naturalWidth === 0) {
+                return false;
+            }
+        return true;
+}
+
 /**
  * This method is used to add new image details to th local storage and call updateGallery();
  */
-function addImage() {
+async function addImage() {
     let imgName = document.getElementById('imgname').value;
     //document.getElementById('imgname').value='';
     let imgUrl = document.getElementById('imgurl').value;
-    let imgDate = document.getElementById('imgdate').value;
+    let imgDate = new Date(document.getElementById('imgdate').value);
     let imgInfo = document.getElementById('imginfo').value;
+    let validUrl = await isUrl(imgUrl);
+    console.log("url =="+validUrl);
     if (imgName != '' && imgUrl != '' && imgDate != '' && imgInfo != '') {
+        if (!validUrl) {
+            alert("Invalid Url."); 
+            return;
+        }else if(new Date(imgDate) > new Date()){
+            alert("Futue Dates not supported.")
+            return;
+        }
         let imgDetails = {
             imgName,
             imgUrl,
@@ -116,9 +147,8 @@ function addImage() {
             imgInfo
         }
         imagesArr.push(imgDetails);
-        updateGallery(imgUrl);
         localStorage.setItem('images', JSON.stringify(imagesArr));
-
+        updateGallery(imgUrl)  
     } else {
         alert("please fill all the  required fields.")
     }
@@ -141,27 +171,38 @@ function showDetails(e) {
     document.getElementById('imgdateedit').value = imagesArr[i].imgDate;
     document.getElementById('imginfoedit').value = imagesArr[i].imgInfo;
     temp = i;
-    document.getElementById('img-details').style.visibility = "visible";  
+    document.getElementById('img-details').style.visibility = "visible";
 }
-/**
- * close the image description  and edit view.
- */
-function closeEdit(){
+
+function closeEdit() {
     document.getElementById('img-details').style.visibility = "hidden";
 }
-/**
- * save the changes if the edit has been made/
- */
-function saveEdit(){
+
+function saveEdit() {
+    if (new Date(document.getElementById('imgdateedit').value) > new Date() || !isUrl(document.getElementById('imgurledit').value) || document.getElementById('imgnameedit').value == '') {
+        alert("please check  edits again.");
+        return;
+    }
     var image = document.querySelector(`img[src = "${imagesArr[temp].imgUrl}" ]`);
     imagesArr[temp].imgName = document.getElementById('imgnameedit').value;
     imagesArr[temp].imgUrl = document.getElementById('imgurledit').value;
     imagesArr[temp].imgDate = document.getElementById('imgdateedit').value;
     imagesArr[temp].imgInfo = document.getElementById('imginfoedit').value;
-    document.getElementById('img-details').style.visibility = "hidden"; 
+    document.getElementById('img-details').style.visibility = "hidden";
     localStorage.setItem('images', JSON.stringify(imagesArr));
     image.src = document.getElementById('imgurledit').value;
     temp = undefined;
     alert("Changes has been saved.")
 
 }
+function deleteImage() {
+    document.getElementById('img-details').style.visibility = "hidden";
+    var image = document.querySelector(`img[src = "${imagesArr[temp].imgUrl}" ]`);
+    imagesArr.splice(temp, 1);
+    localStorage.setItem('images', JSON.stringify(imagesArr));
+    temp = undefined;
+    image.parentNode.parentNode.removeChild(image.parentNode);
+    // $( ".gallery-grid" ).load(window.location.href + ".gallery-grid" );
+
+}
+
