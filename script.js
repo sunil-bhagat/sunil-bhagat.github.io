@@ -112,13 +112,14 @@ function updateGallery(url) {
     document.getElementById('gallery-grid').appendChild(div);
 }
 
-function isUrl(url) {
-    let img = document.createElement('img');;
+async function isUrl(url) {
+    let img = document.createElement('img');
     img.setAttribute('src', url);
-            if (img.naturalHeight + img.naturalWidth === 0) {
-                return false;
-            }
-        return true;
+    await img.onload;
+    if (img.naturalHeight + img.naturalWidth === 0) {
+        return false;
+    }
+    return true;
 }
 
 /**
@@ -131,12 +132,12 @@ async function addImage() {
     let imgDate = new Date(document.getElementById('imgdate').value);
     let imgInfo = document.getElementById('imginfo').value;
     let validUrl = await isUrl(imgUrl);
-    console.log("url =="+validUrl);
+    console.log("url ==" + validUrl);
     if (imgName != '' && imgUrl != '' && imgDate != '' && imgInfo != '') {
         if (!validUrl) {
-            alert("Invalid Url."); 
+            alert("Invalid Url.");
             return;
-        }else if(new Date(imgDate) > new Date()){
+        } else if (new Date(imgDate) > new Date()) {
             alert("Futue Dates not supported.")
             return;
         }
@@ -148,7 +149,7 @@ async function addImage() {
         }
         imagesArr.push(imgDetails);
         localStorage.setItem('images', JSON.stringify(imagesArr));
-        updateGallery(imgUrl)  
+        updateGallery(imgUrl)
     } else {
         alert("please fill all the  required fields.")
     }
