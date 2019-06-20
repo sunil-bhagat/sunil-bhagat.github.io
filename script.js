@@ -112,44 +112,45 @@ function updateGallery(url) {
     document.getElementById('gallery-grid').appendChild(div);
 }
 
-async function isUrl(url) {
-    let img = document.createElement('img');
+function isUrl(url) {
+    let img = document.createElement('img');;
     img.setAttribute('src', url);
-    await img.onload;
-    if (img.naturalHeight + img.naturalWidth === 0) {
-        return false;
-    }
-    return true;
+            if (img.naturalHeight + img.naturalWidth === 0 && img.height+img.width === 0) {
+                return false;
+            }
+        return true;
 }
 
 /**
  * This method is used to add new image details to th local storage and call updateGallery();
  */
-async function addImage() {
+function addImage() {
     let imgName = document.getElementById('imgname').value;
-    //document.getElementById('imgname').value='';
     let imgUrl = document.getElementById('imgurl').value;
     let imgDate = new Date(document.getElementById('imgdate').value);
     let imgInfo = document.getElementById('imginfo').value;
-    let validUrl = await isUrl(imgUrl);
-    console.log("url ==" + validUrl);
+    let img = document.createElement('img');
+    img.setAttribute('src', imgUrl);
     if (imgName != '' && imgUrl != '' && imgDate != '' && imgInfo != '') {
-        if (!validUrl) {
+        img.onload = function () {
+            if(new Date(imgDate)> new Date()){
+                alert("Invalid date format");
+                return;
+            }
+            let imgDetails = {
+                imgName,
+                imgUrl,
+                imgDate,
+                imgInfo
+            }
+            imagesArr.push(imgDetails);
+            localStorage.setItem('images', JSON.stringify(imagesArr));
+            updateGallery(imgUrl)
+        }
+        img.onerror = function () {
             alert("Invalid Url.");
-            return;
-        } else if (new Date(imgDate) > new Date()) {
-            alert("Futue Dates not supported.")
-            return;
+            return;;
         }
-        let imgDetails = {
-            imgName,
-            imgUrl,
-            imgDate,
-            imgInfo
-        }
-        imagesArr.push(imgDetails);
-        localStorage.setItem('images', JSON.stringify(imagesArr));
-        updateGallery(imgUrl)
     } else {
         alert("please fill all the  required fields.")
     }
