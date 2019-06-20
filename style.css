@@ -55,6 +55,17 @@ body{
     border-radius: 15px;
     color: white;
   } 
+  #img-details{
+    visibility: hidden;
+    width: 40%;
+    background-color: #fff;
+    position: fixed;
+    text-align: center;
+    top: 15%;
+    z-index: 10000;
+    left: 30%;
+    border-radius: 9px;
+  }
 @media only screen and (max-width: 600px) {
     .center{
         width:80%;
@@ -63,8 +74,8 @@ body{
         font-size: 14px;
     }
     #img-details{
-        width: 72%;
-        left:14%;
+        width: 81%;
+        left:10%;
     }
    .jibber{ 
         top: 0;
@@ -104,17 +115,7 @@ body{
   .modal{
       padding-right: 0px;
   }
-  #img-details{
-    visibility: hidden;
-    width: 40%;
-    background-color: #fff;
-    position: fixed;
-    text-align: center;
-    top: 15%;
-    z-index: 10000;
-    left: 30%;
-    border-radius: 9px;
-  }
+
   .edit-body{
       padding: 10px;
   }
